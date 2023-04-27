@@ -32,4 +32,13 @@ public class Match {
 		return Objects.hash(p1, p2, result);
 	}
 
+	@Override
+	public String toString() {
+		return "Match{" +
+			"p1=" + p1 +
+			", p2=" + p2 +
+			", result=" + result +
+			'}';
+	}
+
 }
