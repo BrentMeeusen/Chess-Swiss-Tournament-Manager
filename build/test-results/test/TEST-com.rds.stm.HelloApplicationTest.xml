@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.rds.stm.HelloApplicationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-27T14:09:58" hostname="LAPTOPBRENT" time="0.012">
-  <properties/>
-  <testcase name="test()" classname="com.rds.stm.HelloApplicationTest" time="0.012"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
