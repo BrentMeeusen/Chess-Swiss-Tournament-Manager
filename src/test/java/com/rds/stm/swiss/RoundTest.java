@@ -29,6 +29,7 @@ class RoundTest {
 		assertEquals(2, matches.size());
 		assertEquals(new Match(players[0], players[2]), matches.get(0));
 		assertEquals(new Match(players[1], players[3]), matches.get(1));
+		assertEquals(new Match(players[3], players[1]), matches.get(1));    // Inverse shouldn't matter
 	}
 
 }
