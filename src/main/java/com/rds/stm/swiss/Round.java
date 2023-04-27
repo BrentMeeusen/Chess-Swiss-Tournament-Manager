@@ -14,6 +14,15 @@ public class Round {
 		this.matches = findMatches();
 	}
 
+	public ArrayList<Match> getMatches() {
+		return matches;
+	}
+
+	/**
+	 * Finds the matches that will be played this round based on performance and ELO.
+	 *
+	 * @return A list of matches that will be played this round
+	 */
 	private ArrayList<Match> findMatches() {
 		ArrayList<Match> matches = new ArrayList<>();
 		for(int i = 0; i < players.size(); i++) {
