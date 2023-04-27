@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 public class Round {
 
 	private final int round;
-	private ArrayList<Player> players;
-	private ArrayList<Match> matches;
+	private final ArrayList<Player> players;
+	private final ArrayList<Match> matches;
 
 	public Round(int round, ArrayList<Player> players) {
 		this.round = round;
@@ -51,6 +51,8 @@ public class Round {
 				// If they haven't played against each other in this set of rounds yet, schedule the match
 				if(p1.getMatchesAgainst(p2).size() == threshold && !matches.contains(m)) {
 					matches.add(m);
+					p1.addMatch(m);
+					p2.addMatch(m);
 					matchedPlayers.add(p1);
 					matchedPlayers.add(p2);
 					break;

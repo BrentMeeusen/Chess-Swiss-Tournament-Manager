@@ -13,6 +13,14 @@ public class Match {
 		this.result = null;
 	}
 
+	public Player getP1() {
+		return p1;
+	}
+
+	public Player getP2() {
+		return p2;
+	}
+
 	public MatchResult getResult() {
 		return result;
 	}

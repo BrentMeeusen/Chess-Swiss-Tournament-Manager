@@ -2,6 +2,7 @@ package com.rds.stm.swiss;
 
 import java.util.LinkedList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Player implements Comparable<Player> {
 
@@ -51,10 +52,13 @@ public class Player implements Comparable<Player> {
 		return skipped;
 	}
 
+	public void addMatch(Match m) {
+		matches.add(m);
+	}
+
 	public LinkedList<Match> getMatchesAgainst(Player p) {
-		// TODO
-		return new LinkedList<>();
-//		return null;
+		return matches.stream().filter(m -> m.getP1().equals(p) || m.getP2().equals(p)).collect(
+			Collectors.toCollection(LinkedList::new));
 	}
 
 	public void addResult(MatchResult result) {
