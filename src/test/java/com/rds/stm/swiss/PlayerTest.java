@@ -7,8 +7,8 @@ public class PlayerTest {
 
 	@Test
 	public void testPlayerIds() {
-		Player p1 = new Player("Alice");
-		Player p2 = new Player("Bob");
+		Player p1 = new Player("Alice", 800);
+		Player p2 = new Player("Bob", 800);
 
 		assertEquals(1, p1.getId());
 		assertEquals(2, p2.getId());
