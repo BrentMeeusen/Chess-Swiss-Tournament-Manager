@@ -45,7 +45,8 @@ public class Player implements Comparable<Player> {
 
 	public LinkedList<Match> getMatchesAgainst(Player p) {
 		// TODO
-		return null;
+		return new LinkedList<>();
+//		return null;
 	}
 
 	public void addResult(MatchResult result) {
