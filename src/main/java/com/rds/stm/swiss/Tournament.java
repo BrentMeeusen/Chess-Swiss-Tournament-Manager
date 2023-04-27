@@ -7,13 +7,22 @@ import java.util.InputMismatchException;
 public class Tournament implements Serializable {
 
 	private ArrayList<Player> players;
+	private int round;
 
 	public Tournament() {
 		players = new ArrayList<>();
+		round = 0;
 	}
 
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+
+	public void startNewRound() {
+		// Sort players based on score, then rating
+		// If uneven number of players, pick random substitute player (that's not been picked yet)
+		// Match to the closest player they haven't met yet
+
 	}
 
 	/**
