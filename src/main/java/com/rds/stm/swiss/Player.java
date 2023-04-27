@@ -43,6 +43,14 @@ public class Player implements Comparable<Player> {
 		return matches;
 	}
 
+	public void skip() {
+		skipped++;
+	}
+
+	public int getSkipped() {
+		return skipped;
+	}
+
 	public LinkedList<Match> getMatchesAgainst(Player p) {
 		// TODO
 		return new LinkedList<>();
