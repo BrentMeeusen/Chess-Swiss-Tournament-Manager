@@ -9,4 +9,8 @@ public enum MatchResult {
 	MatchResult(float pts) {
 		this.pts = pts;
 	}
+
+	public float getPts() {
+		return pts;
+	}
 }

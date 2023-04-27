@@ -1,5 +1,7 @@
 package com.rds.stm.swiss;
 
+import java.util.Objects;
+
 public class Player implements Comparable<Player> {
 
 	private static int ID = 1;
@@ -29,6 +31,14 @@ public class Player implements Comparable<Player> {
 		this.name = name;
 	}
 
+	public int getRating() {
+		return rating;
+	}
+
+	public void addResult(MatchResult result) {
+		this.score += result.getPts();
+	}
+
 	/**
 	 * Order on score, on rating if equal score.
 	 */
@@ -36,6 +46,24 @@ public class Player implements Comparable<Player> {
 	public int compareTo(Player o) {
 		int score = Float.compare(this.score, o.score);
 		return score == 0 ? Integer.compare(this.rating, o.rating) : score;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Player player = (Player) o;
+		return id == player.id && rating == player.rating &&
+			Float.compare(player.score, score) == 0 && name.equals(player.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, rating, score);
 	}
 
 	@Override
