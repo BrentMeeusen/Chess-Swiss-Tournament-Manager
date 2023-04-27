@@ -3,33 +3,61 @@ package com.rds.stm.swiss;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.*;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class RoundTest {
 
-	public Player[] getPlayers() {
+	public static Player[] getEvenPlayers() {
 		return new Player[] {
 			new Player("Alice", 500),
 			new Player("Bob", 800),
 			new Player("Chris", 600),
 			new Player("Delilah", 900)
-//			new Player("Eric", 500)
 		};
 	}
 
-	@Test
-	public void testFirstRoundMatchmaking() {
-		Player[] players = getPlayers();
-		ArrayList<Player> playerArrayList = new ArrayList<>(List.of(players));
-		Round round = new Round(1, playerArrayList);
+	@ParameterizedTest(name = "{0}")
+	@MethodSource
+	void testFirstRoundMatchmaking(String name, Player[] players, Match[] expected) {
+		Round round = new Round(1, new ArrayList<>(List.of(players)));
 		ArrayList<Match> matches = round.getMatches();
 
-		assertEquals(2, matches.size());
-		assertEquals(new Match(players[0], players[2]), matches.get(0));
-		assertEquals(new Match(players[1], players[3]), matches.get(1));
-		assertEquals(new Match(players[3], players[1]), matches.get(1));    // Inverse shouldn't matter
+		assertEquals(players.length / 2, matches.size());
+		assertEquals(matches.size(), expected.length);
+		for(int i = 0; i < expected.length; i++) {
+			assertEquals(expected[i], matches.get(i));
+		}
+	}
+
+	static Stream<Arguments> testFirstRoundMatchmaking() {
+		Player[] evenPlayers = getEvenPlayers();
+
+		return Stream.of(
+
+			// Even number of players
+			Arguments.of("Even", evenPlayers, new Match[] {
+				new Match(evenPlayers[0], evenPlayers[2]),
+				new Match(evenPlayers[1], evenPlayers[3])
+			}),
+
+			// Even number of players (inverse players in match)
+			Arguments.of("Even inversed", evenPlayers, new Match[] {
+				new Match(evenPlayers[2], evenPlayers[0]),
+				new Match(evenPlayers[3], evenPlayers[1])
+			})
+
+			// Odd number of players
+//			Arguments.of("Odd", evenPlayers, new Match[] {
+//				new Match(evenPlayers[0], evenPlayers[2]),
+//				new Match(evenPlayers[1], evenPlayers[3])
+//			})
+
+		);
 	}
 
 }
