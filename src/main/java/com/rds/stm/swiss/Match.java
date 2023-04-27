@@ -13,6 +13,10 @@ public class Match {
 		this.result = null;
 	}
 
+	public MatchResult getResult() {
+		return result;
+	}
+
 	public void setResult(MatchResult result) {
 		this.result = result;
 	}

@@ -21,13 +21,13 @@ public class Tournament implements Serializable {
 
 	public Round startNewRound() {
 
-		// Start a new round with the players
+		// Check if all matches in the previous round are finished
+		if(rounds.getLast().getMatches().stream().filter(m -> m.getResult() == null).toList().size() > 0) {
+			throw new RuntimeException("All matches of the current round should be finished before starting a new round.");
+		}
+
+		// Start round and add it
 		Round round = new Round(rounds.size() + 1, players);
-
-		// If uneven number of players, pick random substitute player (that's not been picked yet)
-		// Match to the closest player they haven't met yet
-
-		// Add round to list and return it
 		rounds.addLast(round);
 		return round;
 
