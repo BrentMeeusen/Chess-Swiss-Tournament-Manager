@@ -12,6 +12,10 @@ public class Tournament implements Serializable {
 		players = new ArrayList<>();
 	}
 
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
 	/**
 	 * Adds a player to the tournament.
 	 *
