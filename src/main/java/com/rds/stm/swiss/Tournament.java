@@ -22,7 +22,8 @@ public class Tournament implements Serializable {
 	public Round startNewRound() {
 
 		// Check if all matches in the previous round are finished
-		if(rounds.getLast().getMatches().stream().filter(m -> m.getResult() == null).toList().size() > 0) {
+		if(rounds.size() != 0 &&
+			rounds.getLast().getMatches().stream().filter(m -> m.getResult() == null).toList().size() > 0) {
 			throw new RuntimeException("All matches of the current round should be finished before starting a new round.");
 		}
 
