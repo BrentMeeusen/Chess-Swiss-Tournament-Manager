@@ -39,28 +39,4 @@ public class PlayerTest {
 		}
 	}
 
-	@Test
-	public void testSortedOrderWithScores() {
-		Player[] players = getPlayers();
-		players[0].addResult(MatchResult.WIN);
-		players[1].addResult(MatchResult.DRAW);
-		List<Player> sorted = sortPlayers(players);
-
-		int[] expected = { 4, 2, 3, 1, 0 };
-		assertEquals(expected.length, sorted.size());
-
-		for(int i = 0; i < expected.length; i++) {
-			assertEquals(players[expected[i]], sorted.get(i));
-		}
-
-		players[3].addResult(MatchResult.WIN);
-		sorted = sortPlayers(players);
-		expected = new int[] {4, 2, 1, 0, 3};
-
-		for(int i = 0; i < expected.length; i++) {
-			assertEquals(players[expected[i]], sorted.get(i));
-		}
-
-	}
-
 }

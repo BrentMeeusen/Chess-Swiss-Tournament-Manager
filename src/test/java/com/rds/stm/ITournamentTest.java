@@ -3,6 +3,7 @@ package com.rds.stm;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.rds.stm.swiss.Match;
+import com.rds.stm.swiss.MatchResult;
 import com.rds.stm.swiss.Player;
 import com.rds.stm.swiss.Round;
 import com.rds.stm.swiss.Tournament;
@@ -45,8 +46,8 @@ public class ITournamentTest {
 		Player p1 = players.get(0);
 		Player p2 = players.get(1);
 
-		// Expect 0 skipped, 1 played total, 1 played against the 1 opponent
-		Round first = tournament.startNewRound();
+		// Start round 1
+		Round round1 = tournament.startNewRound();
 		assertEquals(0, p1.getSkipped());
 		assertEquals(0, p2.getSkipped());
 		assertEquals(1, p1.getMatches().size());
@@ -55,7 +56,7 @@ public class ITournamentTest {
 		assertEquals(1, p2.getMatchesAgainst(p1).size());
 
 		// 1 match should have been played this round, p1 vs p2
-		ArrayList<Match> firstMatches = first.getMatches();
+		ArrayList<Match> firstMatches = round1.getMatches();
 		assertEquals(1, firstMatches.size());
 		Match match = firstMatches.get(0);
 
@@ -64,6 +65,49 @@ public class ITournamentTest {
 		assertEquals(p2.getMatches().get(0), match);
 		assertEquals(new Match(p1, p2), match);
 		assertEquals(new Match(p2, p1), match);
+
+		// Suppose player 1 wins the match, player 1 should have 1pt and player 2 should have 0pt
+		match.setResult(MatchResult.WIN);
+		assertEquals(1f, p1.getScore());
+		assertEquals(0f, p2.getScore());
+
+		// Suppose the players draw, both players should have 0.5pt
+		match.setResult(MatchResult.DRAW);
+		assertEquals(0.5f, p1.getScore());
+		assertEquals(0.5f, p2.getScore());
+
+		// Suppose player 2 wins the match, player 1 should have 0pt and player 2 should have 1pt
+		match.setResult(MatchResult.LOSS);
+		assertEquals(0f, p1.getScore());
+		assertEquals(1f, p2.getScore());
+
+		// Start round 2, both players should have 2 matches played
+		Round round2 = tournament.startNewRound();
+		assertEquals(0, p1.getSkipped());
+		assertEquals(0, p2.getSkipped());
+		assertEquals(2, p1.getMatches().size());
+		assertEquals(2, p2.getMatches().size());
+		assertEquals(2, p1.getMatchesAgainst(p2).size());
+		assertEquals(2, p2.getMatchesAgainst(p1).size());
+
+		// One match was played this round too
+		assertEquals(1, round2.getMatches().size());
+		match = round2.getMatches().get(0);
+
+		// Suppose player 1 wins the match, player 1 should have 1pt and player 2 should have 1pt
+		match.setResult(MatchResult.WIN);
+		assertEquals(1f, p1.getScore());
+		assertEquals(1f, p2.getScore());
+
+		// Suppose the players draw, player 1 should have 0.5pt and player 2 should have 1.5pt
+		match.setResult(MatchResult.DRAW);
+		assertEquals(0.5f, p1.getScore());
+		assertEquals(1.5f, p2.getScore());
+
+		// Suppose player 2 wins the match, player 1 should have 0pt and player 2 should have 2pt
+		match.setResult(MatchResult.LOSS);
+		assertEquals(0f, p1.getScore());
+		assertEquals(2f, p2.getScore());
 
 	}
 

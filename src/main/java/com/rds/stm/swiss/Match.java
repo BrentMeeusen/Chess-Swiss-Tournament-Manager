@@ -27,6 +27,8 @@ public class Match {
 
 	public void setResult(MatchResult result) {
 		this.result = result;
+//		this.p1.addResult(result);
+//		this.p2.addReversedResult(result);
 	}
 
 	@Override
