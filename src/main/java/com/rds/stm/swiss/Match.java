@@ -13,6 +13,10 @@ public class Match {
 		this.result = null;
 	}
 
+	public void setResult(MatchResult result) {
+		this.result = result;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
