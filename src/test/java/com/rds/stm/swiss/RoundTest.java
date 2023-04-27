@@ -35,20 +35,21 @@ class RoundTest {
 	}
 
 	static Stream<Arguments> testFirstRoundMatchmaking() {
-		Player[] evenPlayers = getEvenPlayers();
+		Player[] evenPlayers1 = getEvenPlayers();
+		Player[] evenPlayers2 = getEvenPlayers();
 
 		return Stream.of(
 
 			// Even number of players
-			Arguments.of("Even", evenPlayers, new Match[] {
-				new Match(evenPlayers[0], evenPlayers[2]),
-				new Match(evenPlayers[1], evenPlayers[3])
+			Arguments.of("Even", evenPlayers1, new Match[] {
+				new Match(evenPlayers1[0], evenPlayers1[2]),
+				new Match(evenPlayers1[1], evenPlayers1[3])
 			}),
 
 			// Even number of players (inverse players in match)
-			Arguments.of("Even inversed", evenPlayers, new Match[] {
-				new Match(evenPlayers[2], evenPlayers[0]),
-				new Match(evenPlayers[3], evenPlayers[1])
+			Arguments.of("Even inversed", evenPlayers2, new Match[] {
+				new Match(evenPlayers2[2], evenPlayers2[0]),
+				new Match(evenPlayers2[3], evenPlayers2[1])
 			})
 
 			// Odd number of players
