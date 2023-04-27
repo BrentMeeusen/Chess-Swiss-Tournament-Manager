@@ -111,4 +111,51 @@ public class ITournamentTest {
 
 	}
 
+	@Test
+	public void simpleTournament3Players() {
+
+		// Create tournament with 2 players
+		Tournament tournament = createTournament(3);
+
+		// Expect 3 players
+		ArrayList<Player> players = tournament.getPlayers();
+		assertEquals(3, players.size());
+
+		// Play 3 rounds, set each match to a win
+		for(int i = 0; i < 3; i++) {
+			Round round = tournament.startNewRound();
+			round.getMatches().get(0).setResult(MatchResult.WIN);
+		}
+
+		// Each player should have 1 match skipped, 2 matches played
+		for(Player p : players) {
+			assertEquals(1, p.getSkipped());
+			assertEquals(2, p.getMatches().size());
+		}
+
+		// Each player should...
+		int totalScore = 0;
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+				if(i == j) continue;
+				Match m = new Match(players.get(i), players.get(j));
+				m.setResult(MatchResult.WIN);
+
+				// ...have played each other player once
+				assertEquals(1, players.get(i).getMatchesAgainst(players.get(j)).size());
+				assertEquals(m, players.get(i).getMatchesAgainst(players.get(j)).get(0));
+			}
+
+			// ...have a score between 0 and 2
+			totalScore += players.get(i).getScore();
+			assertTrue(players.get(i).getScore() >= 0);
+			assertTrue(players.get(i).getScore() <= 2);
+
+		}
+
+		// After 3 matches, the players should have a combined total of 3
+		assertEquals(3, totalScore);
+
+	}
+
 }
