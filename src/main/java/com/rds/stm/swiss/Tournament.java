@@ -22,7 +22,7 @@ public class Tournament implements Serializable {
 	public Round startNewRound() {
 
 		// Start a new round with the players
-		Round round = new Round(players);
+		Round round = new Round(rounds.size() + 1, players);
 
 		// If uneven number of players, pick random substitute player (that's not been picked yet)
 		// Match to the closest player they haven't met yet

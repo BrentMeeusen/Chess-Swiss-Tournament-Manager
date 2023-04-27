@@ -1,5 +1,6 @@
 package com.rds.stm.swiss;
 
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class Player implements Comparable<Player> {
@@ -11,12 +12,15 @@ public class Player implements Comparable<Player> {
 
 	private final int rating;
 	private float score;
+	private int skipped = 0;
+	private LinkedList<Match> matches;
 
 	public Player(String name, int rating) {
 		this.id = Player.ID++;
 		this.name = name;
 		this.rating = rating;
 		this.score = 0;
+		this.matches = new LinkedList<>();
 	}
 
 	public int getId() {
@@ -33,6 +37,15 @@ public class Player implements Comparable<Player> {
 
 	public int getRating() {
 		return rating;
+	}
+
+	public LinkedList<Match> getMatches() {
+		return matches;
+	}
+
+	public LinkedList<Match> getMatchesAgainst(Player p) {
+		// TODO
+		return null;
 	}
 
 	public void addResult(MatchResult result) {

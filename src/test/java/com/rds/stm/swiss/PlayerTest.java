@@ -23,6 +23,12 @@ public class PlayerTest {
 	}
 
 	@Test
+	public void testPlayerIds() {
+		Player[] players = getPlayers();
+		assertEquals(players[0].getId(), players[1].getId() - 1);
+	}
+
+	@Test
 	public void testSortedOrderWithoutScore() {
 		Player[] players = getPlayers();
 		List<Player> sorted = sortPlayers(players);
