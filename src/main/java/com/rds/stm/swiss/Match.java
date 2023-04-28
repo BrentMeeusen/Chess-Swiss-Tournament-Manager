@@ -5,13 +5,18 @@ import java.util.Objects;
 
 public class Match implements Serializable {
 
+	private int board;
 	private Player p1, p2;
 	private MatchResult result;
 
-	public Match(Player p1, Player p2) {
+	public Match(Player p1, Player p2, int board) {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.result = null;
+	}
+
+	public int getBoard() {
+		return board;
 	}
 
 	public Player getP1() {

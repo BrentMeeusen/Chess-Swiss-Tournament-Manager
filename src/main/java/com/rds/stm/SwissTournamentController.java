@@ -1,5 +1,6 @@
 package com.rds.stm;
 
+import com.rds.stm.swiss.Match;
 import com.rds.stm.swiss.Player;
 import com.rds.stm.swiss.Round;
 import com.rds.stm.swiss.Tournament;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,6 +36,9 @@ public class SwissTournamentController {
 
 	@FXML
 	private ChoiceBox<Round> roundSelector;
+
+	@FXML
+	private TableView<Match> activeRoundTable;
 
 	/**
 	 * Accessed from "Add player" button.
@@ -149,7 +154,9 @@ public class SwissTournamentController {
 	 * @param round The round to load
 	 */
 	private void showRoundMatches(Round round) {
-		// TODO
+
+		activeRoundTable.getItems().addAll(round.getMatches());
+
 	}
 
 

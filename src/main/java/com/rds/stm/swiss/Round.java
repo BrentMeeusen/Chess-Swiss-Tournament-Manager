@@ -51,7 +51,7 @@ public class Round implements Serializable {
 			for(int j = i + 1; j < players.size(); j++) {
 				Player p2 = players.get(j);
 				if(matchedPlayers.contains(p2)) continue;
-				Match m = new Match(p1, p2);
+				Match m = new Match(p1, p2, (players.size() / 2) - (matchedPlayers.size() / 2));
 
 				// If they haven't played against each other in this set of rounds yet, schedule the match
 				if(p1.getMatchesAgainst(p2).size() == threshold && !matches.contains(m)) {

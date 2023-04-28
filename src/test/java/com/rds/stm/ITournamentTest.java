@@ -63,8 +63,8 @@ public class ITournamentTest {
 		// Check if the matches p1 and p2 played is equal to this match, inversed or not
 		assertEquals(p1.getMatches().get(0), match);
 		assertEquals(p2.getMatches().get(0), match);
-		assertEquals(new Match(p1, p2), match);
-		assertEquals(new Match(p2, p1), match);
+		assertEquals(new Match(p1, p2, 1), match);
+		assertEquals(new Match(p2, p1, 1), match);
 
 		// Suppose player 1 wins the match, player 1 should have 1pt and player 2 should have 0pt
 		match.setResult(MatchResult.WIN);
@@ -138,7 +138,7 @@ public class ITournamentTest {
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
 				if(i == j) continue;
-				Match m = new Match(players.get(i), players.get(j));
+				Match m = new Match(players.get(i), players.get(j), 1);
 				m.setResult(MatchResult.WIN);
 
 				// ...have played each other player once

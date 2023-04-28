@@ -42,14 +42,14 @@ class RoundTest {
 
 			// Even number of players
 			Arguments.of("Even", evenPlayers1, new Match[] {
-				new Match(evenPlayers1[0], evenPlayers1[2]),
-				new Match(evenPlayers1[1], evenPlayers1[3])
+				new Match(evenPlayers1[0], evenPlayers1[2], 1),
+				new Match(evenPlayers1[1], evenPlayers1[3], 2)
 			}),
 
 			// Even number of players (inverse players in match)
 			Arguments.of("Even inversed", evenPlayers2, new Match[] {
-				new Match(evenPlayers2[2], evenPlayers2[0]),
-				new Match(evenPlayers2[3], evenPlayers2[1])
+				new Match(evenPlayers2[2], evenPlayers2[0], 1),
+				new Match(evenPlayers2[3], evenPlayers2[1], 2)
 			})
 
 			// Odd number of players
