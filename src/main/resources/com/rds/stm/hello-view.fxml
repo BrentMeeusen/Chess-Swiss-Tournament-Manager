@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="500.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.rds.stm.SwissTournamentController">
-   <children>
-      <MenuBar VBox.vgrow="ALWAYS">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="New tournament" />
-              <MenuItem mnemonicParsing="false" text="Save tournament" />
-              <MenuItem mnemonicParsing="false" text="Load tournament" />
-            </items>
-          </Menu>
-        </menus>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rds.stm.SwissTournamentController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#createNewTournament" text="New tournament" />
+                  <MenuItem mnemonicParsing="false" text="Save tournament" />
+                  <MenuItem mnemonicParsing="false" text="Load tournament" />
+               </items>
+            </Menu>
+         </menus>
       </MenuBar>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="99999.0" prefWidth="200.0">
+   </top>
+   <left>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView maxHeight="1.7976931348623157E308" prefHeight="99999.0" prefWidth="200.0" />
+            <TextField fx:id="playerName" prefHeight="30.0" promptText="Name" />
+            <TextField fx:id="playerRating" prefHeight="30.0" promptText="Rating" />
+            <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#addPlayer" prefHeight="30.0" prefWidth="200.0" text="Add player" />
+            <ListView fx:id="playerList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyPressed="#removePlayer" />
          </children>
       </VBox>
-   </children>
-</VBox>
+   </left>
+</BorderPane>
