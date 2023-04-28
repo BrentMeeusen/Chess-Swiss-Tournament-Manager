@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rds.stm.SwissTournamentController">
+<BorderPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rds.stm.SwissTournamentController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#createNewTournament" text="New tournament" />
-                  <MenuItem mnemonicParsing="false" text="Save tournament" />
-                  <MenuItem mnemonicParsing="false" text="Load tournament" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveTournament" text="Save tournament" />
+                  <MenuItem mnemonicParsing="false" onAction="#loadTournament" text="Load tournament" />
                </items>
             </Menu>
          </menus>
@@ -29,8 +33,36 @@
             <TextField fx:id="playerName" prefHeight="30.0" promptText="Name" />
             <TextField fx:id="playerRating" prefHeight="30.0" promptText="Rating" />
             <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#addPlayer" prefHeight="30.0" prefWidth="200.0" text="Add player" />
-            <ListView fx:id="playerList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyPressed="#removePlayer" />
+            <ListView fx:id="playerList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyPressed="#removePlayer" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>
+   <right>
+      <TableView fx:id="standingsTable" prefHeight="694.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+   </right>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
+               <children>
+                  <ChoiceBox fx:id="roundSelector" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="startNewRound" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startNewRound" text="Start new round" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <TableView fx:id="activeRoundTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+              <columns>
+                  <TableColumn prefWidth="75.0" text="Board" />
+                <TableColumn editable="false" prefWidth="75.0" text="Player 1" />
+                <TableColumn editable="false" prefWidth="75.0" text="Player 2" />
+                  <TableColumn prefWidth="75.0" sortable="false" text="Result" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>

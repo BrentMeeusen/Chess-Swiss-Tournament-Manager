@@ -19,6 +19,10 @@ public class Tournament implements Serializable {
 		return players;
 	}
 
+	public LinkedList<Round> getRounds() {
+		return rounds;
+	}
+
 	public Round startNewRound() {
 
 		// Check if all matches in the previous round are finished
@@ -26,6 +30,8 @@ public class Tournament implements Serializable {
 			rounds.getLast().getMatches().stream().filter(m -> m.getResult() == null).toList().size() > 0) {
 			throw new RuntimeException("All matches of the current round should be finished before starting a new round.");
 		}
+
+		if(players.size() < 2) throw new RuntimeException("You need at least 2 players to start a tournament.");
 
 		// Start round and add it
 		Round round = new Round(rounds.size() + 1, players);

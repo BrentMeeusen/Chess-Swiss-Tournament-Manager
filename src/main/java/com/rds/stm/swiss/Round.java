@@ -16,6 +16,10 @@ public class Round {
 		this.matches = findMatches();
 	}
 
+	public int getRound() {
+		return round;
+	}
+
 	public ArrayList<Match> getMatches() {
 		return matches;
 	}
@@ -60,6 +64,11 @@ public class Round {
 			}
 		}
 		return matches;
+	}
+
+	@Override
+	public String toString() {
+		return "Round " + round;
 	}
 
 }
