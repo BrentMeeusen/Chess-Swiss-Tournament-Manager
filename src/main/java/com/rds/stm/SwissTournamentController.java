@@ -12,13 +12,11 @@ import java.util.InputMismatchException;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 public class SwissTournamentController {
@@ -35,9 +33,6 @@ public class SwissTournamentController {
 	private ListView<Player> playerList;
 
 	@FXML
-	private Button startNewRound;
-
-	@FXML
 	private ChoiceBox<Round> roundSelector;
 
 	/**
@@ -47,23 +42,21 @@ public class SwissTournamentController {
 		try {
 			Player player = new Player(playerName.getText(), Integer.parseInt(playerRating.getText()));
 			tournament.addPlayer(player);
+			playerList.getItems().add(player);
 		}
 		catch(InputMismatchException | NumberFormatException e) {
 			error(e.getMessage()).show();
-			return;
 		}
-		showPlayers();
 	}
 
 	/**
 	 * Accessed from keyboard press.
 	 */
 	public void removePlayer(KeyEvent e) {
-		System.out.println("Pressed " + e.getCode());
 		if(e.getCode() == KeyCode.DELETE) {
 			Player selected = playerList.getSelectionModel().getSelectedItem();
 			tournament.removePlayer(selected);
-			showPlayers();
+			playerList.getItems().remove(selected);
 		}
 	}
 
@@ -72,8 +65,7 @@ public class SwissTournamentController {
 	 */
 	public void createNewTournament() {
 		tournament = new Tournament();
-		showPlayers();
-//		TODO: reset all frontend
+		loadTournament(tournament);
 	}
 
 	/**
@@ -107,9 +99,7 @@ public class SwissTournamentController {
 		catch(IOException | ClassNotFoundException e) {
 			error(e.getMessage()).show();
 		}
-		showPlayers();
-		addRoundsToDropdown(tournament.getRounds());
-		showRoundMatches(tournament.getRounds().getLast());
+		loadTournament(tournament);
 	}
 
 	/**
@@ -126,26 +116,38 @@ public class SwissTournamentController {
 			alert.show();
 			return;
 		}
-		showPlayers();
-		addRoundToDropdown(round);
+		roundSelector.getItems().add(round);
 		showRoundMatches(round);
 	}
 
-	private void showPlayers() {
+	/**
+	 * Sets all the frontend based on the tournament that's passed.
+	 *
+	 * @param tournament What values to insert in the tournament
+	 */
+	private void loadTournament(Tournament tournament) {
+
+		// List the players
 		playerList.getItems().clear();
 		for(Player player : tournament.getPlayers()) {
 			playerList.getItems().add(player);
 		}
+
+		// Add all rounds to the dropdown
+		roundSelector.getItems().clear();
+		roundSelector.getItems().addAll(tournament.getRounds());
+
+		// Show the matches of the last round
+		showRoundMatches(tournament.getRounds().getLast());
+
 	}
 
-	private void addRoundToDropdown(Round round) {
-		roundSelector.getItems().add(round);
-	}
-
-	private void addRoundsToDropdown(List<Round> rounds) {
-		roundSelector.getItems().addAll(rounds);
-	}
-
+	/**
+	 * Show the matches of the given round in the table. The user should be able to click
+	 * a dropdown to select whether the match was won, drawn or lost.
+	 *
+	 * @param round The round to load
+	 */
 	private void showRoundMatches(Round round) {
 		// TODO
 	}
