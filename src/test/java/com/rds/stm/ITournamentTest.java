@@ -8,7 +8,6 @@ import com.rds.stm.swiss.Player;
 import com.rds.stm.swiss.Round;
 import com.rds.stm.swiss.Tournament;
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 // I for Integration
@@ -68,18 +67,18 @@ public class ITournamentTest {
 
 		// Suppose player 1 wins the match, player 1 should have 1pt and player 2 should have 0pt
 		match.setResult(MatchResult.WIN);
-		assertEquals(1f, p1.getScore());
-		assertEquals(0f, p2.getScore());
+		assertEquals(1f, p1.getResults().getScore());
+		assertEquals(0f, p2.getResults().getScore());
 
 		// Suppose the players draw, both players should have 0.5pt
 		match.setResult(MatchResult.DRAW);
-		assertEquals(0.5f, p1.getScore());
-		assertEquals(0.5f, p2.getScore());
+		assertEquals(0.5f, p1.getResults().getScore());
+		assertEquals(0.5f, p2.getResults().getScore());
 
 		// Suppose player 2 wins the match, player 1 should have 0pt and player 2 should have 1pt
 		match.setResult(MatchResult.LOSS);
-		assertEquals(0f, p1.getScore());
-		assertEquals(1f, p2.getScore());
+		assertEquals(0f, p1.getResults().getScore());
+		assertEquals(1f, p2.getResults().getScore());
 
 		// Start round 2, both players should have 2 matches played
 		Round round2 = tournament.startNewRound();
@@ -96,18 +95,18 @@ public class ITournamentTest {
 
 		// Suppose player 1 wins the match, player 1 should have 1pt and player 2 should have 1pt
 		match.setResult(MatchResult.WIN);
-		assertEquals(1f, p1.getScore());
-		assertEquals(1f, p2.getScore());
+		assertEquals(1f, p1.getResults().getScore());
+		assertEquals(1f, p2.getResults().getScore());
 
 		// Suppose the players draw, player 1 should have 0.5pt and player 2 should have 1.5pt
 		match.setResult(MatchResult.DRAW);
-		assertEquals(0.5f, p1.getScore());
-		assertEquals(1.5f, p2.getScore());
+		assertEquals(0.5f, p1.getResults().getScore());
+		assertEquals(1.5f, p2.getResults().getScore());
 
 		// Suppose player 2 wins the match, player 1 should have 0pt and player 2 should have 2pt
 		match.setResult(MatchResult.LOSS);
-		assertEquals(0f, p1.getScore());
-		assertEquals(2f, p2.getScore());
+		assertEquals(0f, p1.getResults().getScore());
+		assertEquals(2f, p2.getResults().getScore());
 
 	}
 
@@ -147,9 +146,9 @@ public class ITournamentTest {
 			}
 
 			// ...have a score between 0 and 2
-			totalScore += players.get(i).getScore();
-			assertTrue(players.get(i).getScore() >= 0);
-			assertTrue(players.get(i).getScore() <= 2);
+			totalScore += players.get(i).getResults().getScore();
+			assertTrue(players.get(i).getResults().getScore() >= 0);
+			assertTrue(players.get(i).getResults().getScore() <= 2);
 
 		}
 
