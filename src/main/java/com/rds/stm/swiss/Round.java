@@ -1,10 +1,11 @@
 package com.rds.stm.swiss;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Round {
+public class Round implements Serializable {
 
 	private final int round;
 	private final ArrayList<Player> players;

@@ -1,8 +1,9 @@
 package com.rds.stm.swiss;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Match {
+public class Match implements Serializable {
 
 	private Player p1, p2;
 	private MatchResult result;

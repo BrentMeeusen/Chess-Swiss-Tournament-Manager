@@ -1,10 +1,11 @@
 package com.rds.stm.swiss;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Player implements Comparable<Player> {
+public class Player implements Comparable<Player>, Serializable {
 
 	private static int ID = 1;
 

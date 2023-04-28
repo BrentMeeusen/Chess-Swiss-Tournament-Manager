@@ -73,6 +73,7 @@ public class SwissTournamentController {
 	public void createNewTournament() {
 		tournament = new Tournament();
 		showPlayers();
+//		TODO: reset all frontend
 	}
 
 	/**

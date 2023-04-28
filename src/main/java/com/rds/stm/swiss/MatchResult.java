@@ -1,6 +1,8 @@
 package com.rds.stm.swiss;
 
-public enum MatchResult {
+import java.io.Serializable;
+
+public enum MatchResult implements Serializable {
 	WIN(1),
 	DRAW(0.5f),
 	LOSS(0);
