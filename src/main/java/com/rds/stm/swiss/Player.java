@@ -56,14 +56,14 @@ public class Player implements Comparable<Player>, Serializable {
 			Collectors.toCollection(LinkedList::new));
 	}
 
-	public float getScore() {
-		float score = 0;
-		for(Match m : matches) {
-			if(m.getP1().equals(this)) score += m.getResult().getPts();
-			if(m.getP2().equals(this)) score += (1 - m.getResult().getPts());
-		}
-		return score;
-	}
+//	public float getScore() {
+//		float score = 0;
+//		for(Match m : matches) {
+//			if(m.getP1().equals(this)) score += m.getResult().getPts();
+//			if(m.getP2().equals(this)) score += (1 - m.getResult().getPts());
+//		}
+//		return score;
+//	}
 
 	public Result getResults() {
 		int wins = 0, draws = 0;
@@ -80,7 +80,7 @@ public class Player implements Comparable<Player>, Serializable {
 	 */
 	@Override
 	public int compareTo(Player o) {
-		int score = Float.compare(this.getScore(), o.getScore());
+		int score = Float.compare(this.getResults().getScore(), o.getResults().getScore());
 		return score == 0 ? Integer.compare(this.rating, o.rating) : score;
 	}
 
@@ -94,12 +94,12 @@ public class Player implements Comparable<Player>, Serializable {
 		}
 		Player player = (Player) o;
 		return id == player.id && rating == player.rating &&
-			Float.compare(player.getScore(), getScore()) == 0 && name.equals(player.name);
+			Float.compare(player.getResults().getScore(), getResults().getScore()) == 0 && name.equals(player.name);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, rating, getScore());
+		return Objects.hash(id, name, rating, getResults().getScore());
 	}
 
 	@Override

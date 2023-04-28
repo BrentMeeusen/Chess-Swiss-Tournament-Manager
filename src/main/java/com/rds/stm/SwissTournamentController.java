@@ -42,6 +42,14 @@ public class SwissTournamentController implements Initializable {
 	@FXML private TableColumn<Match, Player> p2Column;
 	@FXML private TableColumn<Match, ChoiceBox<MatchResult>> resultColumn;
 
+	@FXML private TableView<Player> standingsTable;
+	@FXML private TableColumn<Player, String> nameColumn;
+	@FXML private TableColumn<Player, Float> scoreColumn;
+	@FXML private TableColumn<Player, Integer> playedColumn;
+	@FXML private TableColumn<Player, Integer> winColumn;
+	@FXML private TableColumn<Player, Integer> drawColumn;
+	@FXML private TableColumn<Player, Integer> lossColumn;
+
 	/**
 	 * Creates a new ChoiceBox with the MatchResult options to select what the result of the match was.
 	 *
@@ -59,8 +67,11 @@ public class SwissTournamentController implements Initializable {
 		// Select result if the match already has a result
 		if(match.getResult() != null) resultChoice.getSelectionModel().select(match.getResult());
 
-		// Set the match result to the selected result when clicked
-		resultChoice.setOnAction(v -> match.setResult(resultChoice.getSelectionModel().getSelectedItem()));
+		// When result is clicked:
+		resultChoice.setOnAction(v -> {
+			match.setResult(resultChoice.getSelectionModel().getSelectedItem());    // Set the match result
+			computeStandings();                                                     // Compute new standings
+		});
 
 		// Return the object
 		return resultChoice;
@@ -82,6 +93,14 @@ public class SwissTournamentController implements Initializable {
 		p1Column.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getP1()));
 		p2Column.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getP2()));
 		resultColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(getResultChoice(data.getValue())));
+
+		// Setup standings table
+		nameColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getName()));
+		scoreColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getResults().getScore()));
+		playedColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getMatches().size()));
+		winColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getResults().getWins()));
+		drawColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getResults().getDraws()));
+		lossColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getResults().getLosses()));
 
 	}
 
@@ -165,8 +184,11 @@ public class SwissTournamentController implements Initializable {
 			playerList.getItems().add(player);
 		}
 
-		// Clear dropdown
+		// Clear rounds dropdown
 		roundDropdown.getItems().clear();
+
+		// Reset standings
+		computeStandings();
 
 		// Add all rounds and select the last played round if any were played
 		if(tournament.getRounds().size() > 0) {
@@ -174,6 +196,10 @@ public class SwissTournamentController implements Initializable {
 			roundDropdown.getSelectionModel().select(tournament.getRounds().getLast());
 		}
 
+	}
+
+	private void computeStandings() {
+		standingsTable.getItems().setAll(tournament.getPlayers());
 	}
 
 	/**
