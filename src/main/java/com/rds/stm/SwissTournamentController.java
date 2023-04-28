@@ -50,23 +50,24 @@ public class SwissTournamentController implements Initializable {
 	@FXML private TableColumn<Match, Player> p1Column;
 	@FXML private TableColumn<Match, Player> p2Column;
 	@FXML private TableColumn<Match, ChoiceBox<MatchResult>> resultColumn;
-	private final ChoiceBox<MatchResult> resultChoice = new ChoiceBox<>();
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-
-		// Create match result ChoiceBox
+	private ChoiceBox<MatchResult> getResultChoice(Match match) {
+		ChoiceBox<MatchResult> resultChoice = new ChoiceBox<>();
 		resultChoice.getItems().add(MatchResult.WIN);
 		resultChoice.getItems().add(MatchResult.DRAW);
 		resultChoice.getItems().add(MatchResult.LOSS);
-		SimpleObjectProperty<ChoiceBox<MatchResult>> rcb = new SimpleObjectProperty<>(resultChoice);
-		resultChoice.setOnAction(System.out::println);
+		resultChoice.setOnAction(v -> match.setResult(resultChoice.getSelectionModel().getSelectedItem()));
+		return resultChoice;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 
 		// Setup match table
 		boardNumberColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getBoard()));
 		p1Column.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getP1()));
 		p2Column.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getP2()));
-		resultColumn.setCellValueFactory(data -> rcb);
+		resultColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(getResultChoice(data.getValue())));
 
 	}
 
