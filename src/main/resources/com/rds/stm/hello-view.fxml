@@ -7,15 +7,15 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="500.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.rds.stm.HelloController">
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.rds.stm.SwissTournamentController">
    <children>
       <MenuBar VBox.vgrow="ALWAYS">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem mnemonicParsing="false" text="New tournament" />
-                  <MenuItem mnemonicParsing="false" text="Save tournament" />
-                  <MenuItem mnemonicParsing="false" text="Load tournament" />
+              <MenuItem mnemonicParsing="false" text="Save tournament" />
+              <MenuItem mnemonicParsing="false" text="Load tournament" />
             </items>
           </Menu>
         </menus>
