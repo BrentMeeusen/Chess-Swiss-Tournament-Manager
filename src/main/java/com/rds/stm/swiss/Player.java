@@ -13,7 +13,6 @@ public class Player implements Comparable<Player>, Serializable {
 	private String name;
 
 	private final int rating;
-//	private float score;
 	private int skipped = 0;
 	private LinkedList<Match> matches;
 
@@ -21,7 +20,6 @@ public class Player implements Comparable<Player>, Serializable {
 		this.id = Player.ID++;
 		this.name = name;
 		this.rating = rating;
-//		this.score = 0;
 		this.matches = new LinkedList<>();
 	}
 
@@ -31,10 +29,6 @@ public class Player implements Comparable<Player>, Serializable {
 
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public int getRating() {
@@ -71,13 +65,15 @@ public class Player implements Comparable<Player>, Serializable {
 		return score;
 	}
 
-//	public void addResult(MatchResult result) {
-//		this.score += result.getPts();
-//	}
-//
-//	public void addReversedResult(MatchResult result) {
-//		this.score += (1 - result.getPts());
-//	}
+	public Result getResults() {
+		int wins = 0, draws = 0;
+		for(Match match : matches) {
+			if(match.getResult() == MatchResult.DRAW) draws++;
+			if((match.getResult() == MatchResult.WIN && match.getP1().equals(this)) ||
+				match.getResult() == MatchResult.LOSS && match.getP2().equals(this)) wins++;
+		}
+		return new Result(wins, draws, matches.size() - wins - draws);
+	}
 
 	/**
 	 * Order on score, on rating if equal score.
