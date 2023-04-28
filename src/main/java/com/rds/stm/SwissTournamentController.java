@@ -11,17 +11,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableIntegerValue;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -30,7 +22,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
@@ -51,17 +42,38 @@ public class SwissTournamentController implements Initializable {
 	@FXML private TableColumn<Match, Player> p2Column;
 	@FXML private TableColumn<Match, ChoiceBox<MatchResult>> resultColumn;
 
+	/**
+	 * Creates a new ChoiceBox with the MatchResult options to select what the result of the match was.
+	 *
+	 * @param match The corresponding match
+	 * @return The ChoiceBox
+	 */
 	private ChoiceBox<MatchResult> getResultChoice(Match match) {
+
+		// Create the result box
 		ChoiceBox<MatchResult> resultChoice = new ChoiceBox<>();
 		resultChoice.getItems().add(MatchResult.WIN);
 		resultChoice.getItems().add(MatchResult.DRAW);
 		resultChoice.getItems().add(MatchResult.LOSS);
+
+		// Select result if the match already has a result
+		if(match.getResult() != null) resultChoice.getSelectionModel().select(match.getResult());
+
+		// Set the match result to the selected result when clicked
 		resultChoice.setOnAction(v -> match.setResult(resultChoice.getSelectionModel().getSelectedItem()));
+
+		// Return the object
 		return resultChoice;
+
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		// When round is selected, set the matches in the table to the matches from the selected round
+		roundSelector.setOnAction(event -> activeRoundTable.getItems().setAll(
+			roundSelector.getSelectionModel().getSelectedItem().getMatches()
+		));
 
 		// Setup match table
 		boardNumberColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getBoard()));
@@ -153,7 +165,7 @@ public class SwissTournamentController implements Initializable {
 			return;
 		}
 		roundSelector.getItems().add(round);
-		showRoundMatches(round);
+		roundSelector.getSelectionModel().select(round);
 	}
 
 	/**
@@ -174,18 +186,8 @@ public class SwissTournamentController implements Initializable {
 		roundSelector.getItems().addAll(tournament.getRounds());
 
 		// Show the matches of the last round
-		if(tournament.getRounds().size() > 0) showRoundMatches(tournament.getRounds().getLast());
+		if(tournament.getRounds().size() > 0) roundSelector.getSelectionModel().select(tournament.getRounds().getLast());
 
-	}
-
-	/**
-	 * Show the matches of the given round in the table. The user should be able to click
-	 * a dropdown to select whether the match was won, drawn or lost.
-	 *
-	 * @param round The round to load
-	 */
-	private void showRoundMatches(Round round) {
-		activeRoundTable.getItems().addAll(round.getMatches());
 	}
 
 

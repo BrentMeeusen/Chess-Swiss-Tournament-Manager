@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rds.stm.SwissTournamentController">
+<BorderPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rds.stm.SwissTournamentController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
@@ -51,7 +51,7 @@
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
                <children>
                   <ChoiceBox fx:id="roundSelector" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startNewRound" text="Start new round" HBox.hgrow="ALWAYS" />
+                  <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startNewRound" text="Start new round" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <TableView fx:id="activeRoundTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
