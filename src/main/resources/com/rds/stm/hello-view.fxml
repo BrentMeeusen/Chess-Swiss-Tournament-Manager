@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="720.0" prefWidth="1124.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rds.stm.SwissTournamentController">
+<BorderPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="575.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rds.stm.SwissTournamentController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
@@ -38,7 +38,7 @@
       </VBox>
    </left>
    <center>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="600.0" BorderPane.alignment="CENTER_LEFT">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="550.0" BorderPane.alignment="CENTER_LEFT">
          <children>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
                <children>
@@ -46,11 +46,11 @@
                   <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startNewRound" text="Start new round" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <TableView fx:id="matchesTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="684.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="matchesTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
               <columns>
-                  <TableColumn fx:id="boardNumberColumn" editable="false" prefWidth="100.0" resizable="false" text="Board" />
-                <TableColumn fx:id="p1Column" editable="false" prefWidth="200.0" resizable="false" text="Player 1" />
-                <TableColumn fx:id="p2Column" editable="false" maxWidth="200.0" prefWidth="200.0" resizable="false" text="Player 2" />
+                  <TableColumn fx:id="boardNumberColumn" editable="false" prefWidth="50.0" resizable="false" text="Board" />
+                <TableColumn fx:id="p1Column" editable="false" prefWidth="200.0" text="Player 1" />
+                <TableColumn fx:id="p2Column" editable="false" maxWidth="200.0" prefWidth="200.0" text="Player 2" />
                   <TableColumn fx:id="resultColumn" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Result" />
               </columns>
             </TableView>
@@ -58,7 +58,7 @@
       </VBox>
    </center>
    <right>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="100.0" prefWidth="325.0" BorderPane.alignment="CENTER">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="100.0" prefWidth="330.0" BorderPane.alignment="CENTER">
          <children>
             <TableView fx:id="standingsTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
               <columns>

@@ -112,6 +112,8 @@ public class SwissTournamentController implements Initializable {
 			Player player = new Player(playerName.getText(), Integer.parseInt(playerRating.getText()));
 			tournament.addPlayer(player);
 			playerList.getItems().add(player);
+			playerName.clear();
+			playerRating.clear();
 		}
 		catch(InputMismatchException | NumberFormatException e) {
 			error(e.getMessage()).show();
