@@ -56,10 +56,10 @@
             </HBox>
             <TableView fx:id="activeRoundTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
               <columns>
-                  <TableColumn editable="false" prefWidth="75.0" text="Board" />
-                <TableColumn editable="false" prefWidth="75.0" text="Player 1" />
-                <TableColumn editable="false" prefWidth="75.0" text="Player 2" />
-                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Result" />
+                  <TableColumn fx:id="boardNumberColumn" editable="false" prefWidth="75.0" text="Board" />
+                <TableColumn fx:id="p1Column" editable="false" prefWidth="75.0" text="Player 1" />
+                <TableColumn fx:id="p2Column" editable="false" prefWidth="75.0" text="Player 2" />
+                  <TableColumn fx:id="resultColumn" editable="false" prefWidth="75.0" sortable="false" text="Result" />
               </columns>
             </TableView>
          </children>

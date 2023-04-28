@@ -2,6 +2,8 @@ package com.rds.stm.swiss;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
 public class Match implements Serializable {
 
@@ -10,6 +12,7 @@ public class Match implements Serializable {
 	private MatchResult result;
 
 	public Match(Player p1, Player p2, int board) {
+		this.board = board;
 		this.p1 = p1;
 		this.p2 = p2;
 		this.result = null;
@@ -33,8 +36,6 @@ public class Match implements Serializable {
 
 	public void setResult(MatchResult result) {
 		this.result = result;
-//		this.p1.addResult(result);
-//		this.p2.addReversedResult(result);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.rds.stm;
 
 import com.rds.stm.swiss.Match;
+import com.rds.stm.swiss.MatchResult;
 import com.rds.stm.swiss.Player;
 import com.rds.stm.swiss.Round;
 import com.rds.stm.swiss.Tournament;
@@ -9,36 +10,65 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.ResourceBundle;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 
-public class SwissTournamentController {
+public class SwissTournamentController implements Initializable {
 
 	private Tournament tournament = new Tournament();
 
-	@FXML
-	private TextField playerName;
+	@FXML private TextField playerName;
+	@FXML private TextField playerRating;
+	@FXML private ListView<Player> playerList;
 
-	@FXML
-	private TextField playerRating;
+	@FXML private ChoiceBox<Round> roundSelector;
 
-	@FXML
-	private ListView<Player> playerList;
+	@FXML private TableView<Match> activeRoundTable;
+	@FXML private TableColumn<Match, Integer> boardNumberColumn;
+	@FXML private TableColumn<Match, Player> p1Column;
+	@FXML private TableColumn<Match, Player> p2Column;
+	@FXML private TableColumn<Match, ChoiceBox<MatchResult>> resultColumn;
+	private final ChoiceBox<MatchResult> resultChoice = new ChoiceBox<>();
 
-	@FXML
-	private ChoiceBox<Round> roundSelector;
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 
-	@FXML
-	private TableView<Match> activeRoundTable;
+		// Create match result ChoiceBox
+		resultChoice.getItems().add(MatchResult.WIN);
+		resultChoice.getItems().add(MatchResult.DRAW);
+		resultChoice.getItems().add(MatchResult.LOSS);
+		SimpleObjectProperty<ChoiceBox<MatchResult>> rcb = new SimpleObjectProperty<>(resultChoice);
+		resultChoice.setOnAction(System.out::println);
+
+		// Setup match table
+		boardNumberColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getBoard()));
+		p1Column.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getP1()));
+		p2Column.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getP2()));
+		resultColumn.setCellValueFactory(data -> rcb);
+
+	}
 
 	/**
 	 * Accessed from "Add player" button.
@@ -80,7 +110,7 @@ public class SwissTournamentController {
 		try {
 			FileChooser fc = new FileChooser();
 			fc.setTitle("Choose location");
-			FileOutputStream location = new FileOutputStream(fc.showOpenDialog(playerName.getScene().getWindow()));
+			FileOutputStream location = new FileOutputStream(fc.showSaveDialog(playerName.getScene().getWindow()));
 			ObjectOutputStream oos = new ObjectOutputStream(location);
 			oos.writeObject(tournament);
 			oos.close();
@@ -143,7 +173,7 @@ public class SwissTournamentController {
 		roundSelector.getItems().addAll(tournament.getRounds());
 
 		// Show the matches of the last round
-		showRoundMatches(tournament.getRounds().getLast());
+		if(tournament.getRounds().size() > 0) showRoundMatches(tournament.getRounds().getLast());
 
 	}
 
@@ -154,9 +184,7 @@ public class SwissTournamentController {
 	 * @param round The round to load
 	 */
 	private void showRoundMatches(Round round) {
-
 		activeRoundTable.getItems().addAll(round.getMatches());
-
 	}
 
 
