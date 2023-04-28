@@ -34,9 +34,9 @@ public class SwissTournamentController implements Initializable {
 	@FXML private TextField playerRating;
 	@FXML private ListView<Player> playerList;
 
-	@FXML private ChoiceBox<Round> roundSelector;
+	@FXML private ChoiceBox<Round> roundDropdown;
 
-	@FXML private TableView<Match> activeRoundTable;
+	@FXML private TableView<Match> matchesTable;
 	@FXML private TableColumn<Match, Integer> boardNumberColumn;
 	@FXML private TableColumn<Match, Player> p1Column;
 	@FXML private TableColumn<Match, Player> p2Column;
@@ -70,10 +70,12 @@ public class SwissTournamentController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		// When round is selected, set the matches in the table to the matches from the selected round
-		roundSelector.setOnAction(event -> activeRoundTable.getItems().setAll(
-			roundSelector.getSelectionModel().getSelectedItem().getMatches()
-		));
+		// When round is selected
+		roundDropdown.setOnAction(event -> {
+			Round r = roundDropdown.getSelectionModel().getSelectedItem();
+			if(r == null) matchesTable.getItems().clear();          // If no round is selected, show no matches
+			else matchesTable.getItems().setAll(r.getMatches());    // Else, show matches of the round
+		});
 
 		// Setup match table
 		boardNumberColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getBoard()));
@@ -151,6 +153,30 @@ public class SwissTournamentController implements Initializable {
 	}
 
 	/**
+	 * Sets all the frontend based on the tournament that's passed.
+	 *
+	 * @param tournament What values to insert in the tournament
+	 */
+	private void loadTournament(Tournament tournament) {
+
+		// List the players
+		playerList.getItems().clear();
+		for(Player player : tournament.getPlayers()) {
+			playerList.getItems().add(player);
+		}
+
+		// Clear dropdown
+		roundDropdown.getItems().clear();
+
+		// Add all rounds and select the last played round if any were played
+		if(tournament.getRounds().size() > 0) {
+			roundDropdown.getItems().setAll(tournament.getRounds());
+			roundDropdown.getSelectionModel().select(tournament.getRounds().getLast());
+		}
+
+	}
+
+	/**
 	 * Accessed from button.
 	 */
 	public void startNewRound() {
@@ -164,30 +190,8 @@ public class SwissTournamentController implements Initializable {
 			alert.show();
 			return;
 		}
-		roundSelector.getItems().add(round);
-		roundSelector.getSelectionModel().select(round);
-	}
-
-	/**
-	 * Sets all the frontend based on the tournament that's passed.
-	 *
-	 * @param tournament What values to insert in the tournament
-	 */
-	private void loadTournament(Tournament tournament) {
-
-		// List the players
-		playerList.getItems().clear();
-		for(Player player : tournament.getPlayers()) {
-			playerList.getItems().add(player);
-		}
-
-		// Add all rounds to the dropdown
-		roundSelector.getItems().clear();
-		roundSelector.getItems().addAll(tournament.getRounds());
-
-		// Show the matches of the last round
-		if(tournament.getRounds().size() > 0) roundSelector.getSelectionModel().select(tournament.getRounds().getLast());
-
+		roundDropdown.getItems().add(round);
+		roundDropdown.getSelectionModel().select(round);
 	}
 
 

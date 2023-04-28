@@ -50,11 +50,11 @@
          <children>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
                <children>
-                  <ChoiceBox fx:id="roundSelector" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                  <ChoiceBox fx:id="roundDropdown" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                   <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startNewRound" text="Start new round" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <TableView fx:id="activeRoundTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="matchesTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
               <columns>
                   <TableColumn fx:id="boardNumberColumn" editable="false" prefWidth="75.0" text="Board" />
                 <TableColumn fx:id="p1Column" editable="false" prefWidth="75.0" text="Player 1" />
